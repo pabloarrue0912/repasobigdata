@@ -1,17 +1,27 @@
+install.packages("rvest")
 
+library(rvest)
 
+sensacine <- read_html("https://www.sensacine.com/peliculas/mejores-peliculas/%22)
 
-#gato es para comentarios
-#enteros, 0 1 2 3
-#doubles 0,11   2,3
-#boleanos true false t f
-#string y caracteres
-"hola mundo"
+#Revisando el contenido 
 
+print(html_text(sensacine))
 
-#creamos la variable
+titulos<- html_nodes(sensacine, css=".meta-title-link")
+print(html_text(titulos))
 
-hola <- "pasto"
-hola
-hola <- "oveja"
-hola
+#Navegacion en 10 paginas, 10 peliculas por pagina =100
+
+for (nropagina in 1:10) {
+print ("==========================================================================")
+print(paste("Navegando por el nro de pagina",nropagina))
+url1sensacine<- (paste("https://www.sensacine.com/peliculas/mejores-peliculas/%22,%22?page=%22,nropagina,sep = ""))
+print(url1sensacine)
+sensacine<- read_html(url1sensacine)
+print(html_text(sensacine))
+
+}
+
+titulos2<-html_nodes(sensacine,css=".meta-title-link")
+print(html_text(titulos2))
